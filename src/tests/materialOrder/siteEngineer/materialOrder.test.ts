@@ -5,6 +5,7 @@ import {
   getRequestedOrders,
   siteEngineerCreateOrder,
 } from "../../../api/materialOrder/siteEngineer/siteEngineerMaterialOrder.api";
+import fs from "fs";
 
 export let bearerToken: string, orderId: string;
 
@@ -36,10 +37,6 @@ test("Create Material Order", async () => {
           itemId: "86",
           quantity: 10,
         },
-        {
-          itemId: "87",
-          quantity: 20,
-        },
       ],
     },
     bearerToken
@@ -57,5 +54,7 @@ test("Get Requested Material Orders", async () => {
   const body = await response.json();
   expect(response.status(), "API call failed").toBe(200);
   orderId = body.data.items[0].id;
+
+  fs.writeFileSync("./orderId.json", JSON.stringify({ orderId }));
   expect(orderId).toBe(body.data.items[0].id);
 });
