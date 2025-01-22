@@ -20,4 +20,5 @@ export const vendorData = {
   phoneNumber: process.env.VENDOR_PHONE_NUMBER,
   password: process.env.VENDOR_PASSWORD,
   id: process.env.VENDOR_ID,
+  countryCode: process.env.COUNTRY_CODE,
 };
