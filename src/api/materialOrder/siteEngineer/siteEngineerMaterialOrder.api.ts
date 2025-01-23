@@ -62,3 +62,85 @@ export const getRequestedOrders = async (
 
   return response;
 };
+
+export const verifyOrderQty = async (
+  bearerToken: string,
+  purchaseOrderId: number | string,
+  orderItemId: number | string,
+  orderId: number | string,
+  verifiedQuantity: number
+) => {
+  const context = await request.newContext({
+    baseURL: process.env.BASE_URL,
+  });
+
+  const response = await context.patch(
+    process.env.BASE_URL +
+      `/site-engineer/material/order/${orderId}/purchase-order/${purchaseOrderId}/order-item/${orderItemId}/approve-quanity`,
+    {
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+
+      data: {
+        verifiedQuantity,
+      },
+    }
+  );
+
+  return response;
+};
+
+export const getOrderDetail = async (
+  bearerToken: string,
+  orderId: string | number
+) => {
+  const context = await request.newContext({
+    baseURL: process.env.BASE_URL,
+  });
+
+  const response = await context.get(
+    process.env.BASE_URL +
+      siteEngineerMaterialOrderEndpoints.getOrderDetail.replace(
+        ":orderId",
+        String(orderId)
+      ),
+    {
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  return response;
+};
+
+export const verifySubmissions = async (
+  bearerToken: string,
+  orderId: string | number
+) => {
+  const context = await request.newContext({
+    baseURL: process.env.BASE_URL,
+  });
+
+  const response = await context.patch(
+    process.env.BASE_URL +
+      siteEngineerMaterialOrderEndpoints.verifySubmissions.replace(
+        ":orderId",
+        String(orderId)
+      ),
+    {
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  return response;
+};

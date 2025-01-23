@@ -1,6 +1,6 @@
 import { request } from "@playwright/test";
 import { vendorMaterialOrderEndpoints } from "../../../constants/materialOrder/vendor/vendorMaterialOrder.endpoints";
-import { bearerToken } from "../../../tests/materialOrder/siteEngineer/materialOrder.test";
+import { bearerToken } from "../../../tests/materialOrder/siteEngineer/1materialOrder.test";
 
 export const getNewOrder = async (
   bearerToken: string,

@@ -45,6 +45,10 @@ test.describe.serial("Change order status", () => {
 
     const newOrder = orders.find((order: any) => order.order.id === orderId);
     purchaseOrderId = newOrder.id;
+    fs.writeFileSync(
+      "./orderId.json",
+      JSON.stringify({ orderId, purchaseOrderId })
+    );
 
     expect(newOrder.status).toBe("NewOrder");
     expect(newOrder.order.status).toBe("Placed");
@@ -73,6 +77,10 @@ test.describe.serial("Change order status", () => {
     expect(body.data.order.status).toBe("Placed");
 
     orderItemId = body.data.orderItems[0].id;
+    fs.writeFileSync(
+      "./orderId.json",
+      JSON.stringify({ orderId, purchaseOrderId, orderItemId })
+    );
   });
 
   test("Ready To delivery", async () => {
@@ -85,7 +93,7 @@ test.describe.serial("Change order status", () => {
       0,
       orderItemId,
       5,
-      15000
+      20000
     );
     const body = await response.json();
 
